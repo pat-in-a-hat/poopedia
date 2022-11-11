@@ -22,7 +22,8 @@ export default function TriviaAPI () {
         fetchPost();
     }, [reset])
 
-    console.log(trivia)
+    //const [category, type, difficulty, question, correct_answer] = trivia.results[0]
+    console.log(trivia.results)
 
     return(
         <Card.Body>
