@@ -4,7 +4,10 @@ import Homepage from './components/Homepage.js'
 
 function App() {
   return (
-    <Homepage />
+    <div className='grad'>
+      <Homepage/>
+    </div>
+    
   );
 }
 

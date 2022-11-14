@@ -1,37 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import Form from 'react-bootstrap/Form';
 
-const TRIVIA = 'https://opentdb.com/api.php?amount=1';
+//Utilizing the useless facts api. Access via the link
+const FACT = 'https://uselessfacts.jsph.pl/today.json?language=en';
 
-export default function TriviaAPI () {
+export default function TriviaAPI (props) {
     const [reset, setReset] = useState(0)
-    const [trivia, setTrivia] = useState('')
+    const [fact, setFact] = useState(false)
 
     useEffect(() => {
         const fetchPost = async() => {
             try {
-                const response = await fetch(TRIVIA)
+                const response = await fetch(FACT)
                 const data = await response.json()
+                console.log('printing fact fetch data below')
                 console.log(data)
-                setTrivia(data);
+                setFact(data);
             } catch (error) {
                 console.log(error)
             }
         }
         fetchPost();
-    }, [reset])
+    }, [reset])//add reset state here once fixed
 
-    //const [category, type, difficulty, question, correct_answer] = trivia.results[0]
-    console.log(trivia.results)
+    
+    const {id, language, permalink, source, source_url, text} = fact
+    
+    //console.log('printing fact results below')
+    //console.log(source_url)
+    //console.log(question)
+    //console.log(correctAnswer)
 
     return(
+        <Card>
         <Card.Body>
-                <Card.Title>Random Trivia Question</Card.Title>
+                <Card.Title>Random Fact</Card.Title>
         <Card.Text>
-            test
+            {text}
+
         </Card.Text>
-            <Button onClick={() => setReset((reset) => reset + 1)}>New Trivia</Button>
+            <Button onClick={() => setReset(({reset}) => reset + 1)}>New Random Fact</Button>
+            <Button onClick={() => props.addLikedPost(id, permalink, source_url, text)}>Save this fact</Button>
         </Card.Body>
+        </Card>
     )
 }

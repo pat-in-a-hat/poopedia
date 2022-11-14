@@ -1,1 +1,7 @@
-
+.grad{
+  background-image: linear-gradient(to bottom right, #8b4513, #DEB887);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
