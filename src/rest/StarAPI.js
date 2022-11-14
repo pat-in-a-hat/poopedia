@@ -87,14 +87,12 @@ export default function StarAPI(props) {
             <Card.Title>Saved Facts</Card.Title>
             <Card.Body>
                 {console.log(likes)}
-                
-                {likes.map((like) => {
-                    <div key={like.id}>
-                        {like.text}
-                        {/*<Button onClick={() => deleteLike(like.id)}>Delete Button</Button>*/}
-                    </div>
-                    
-                })
+                {likes.map((like) => (
+                    <Col key={like.id}>
+                    {like.text}
+                    <Button onClick={() => deleteLike(like.id)}>Delete</Button>
+                    </Col>
+                ))
                 }
                 
             </Card.Body>
