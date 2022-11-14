@@ -34,15 +34,22 @@ export default function TriviaAPI (props) {
     //console.log(correctAnswer)
 
     return(
-        <Card>
+        <Card bg='secondary'>
         <Card.Body>
-                <Card.Title>Random Fact</Card.Title>
+                <Card.Header>
+                    <Card.Title>Poopedia</Card.Title>
+                    <Card.Subtitle>Learn whilst doing yer business</Card.Subtitle>
+                </Card.Header>
+                
         <Card.Text>
+            {<br></br>}
             {text}
-
+            {<br></br>}
+            {<br></br>}
         </Card.Text>
-            <Button onClick={() => setReset(({reset}) => reset + 1)}>New Random Fact</Button>
-            <Button onClick={() => props.addLikedPost(id, permalink, source_url, text)}>Save this fact</Button>
+            <Button className = 'float-start' variant='outline-dark' size='sm' onClick={() => setReset(({reset}) => reset + 1)}>New Fact</Button>
+            <Button variant='outline-dark' size='sm' onClick={() => props.revealLikedFacts()}>Saved facts</Button>
+            <Button className = 'float-sm-end' variant='outline-dark' size='sm' onClick={() => props.addLikedPost(id, permalink, source_url, text)}>Save this fact</Button>
         </Card.Body>
         </Card>
     )

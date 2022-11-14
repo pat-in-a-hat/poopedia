@@ -3,6 +3,9 @@ import TriviaAPI from './TriviaAPI'
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import ListGroup from 'react-bootstrap/ListGroup'
+import CloseButton from 'react-bootstrap/CloseButton'
 
 const APILINK = 'https://634f6de2df22c2af7b512858.mockapi.io/pickem/poopedia'
 
@@ -14,8 +17,11 @@ const APILINK = 'https://634f6de2df22c2af7b512858.mockapi.io/pickem/poopedia'
 
 export default function StarAPI(props) {
 
-    const [loading, setLoading] = useState(true)
-    const [likes, setLikes] = useState([]) //for GET
+    //using a variety of use state hooks here
+    const [revealed, setRevealed] = useState(false)//to determine whether the saved facts are revealed
+    const [deleted, setDelete] = useState(0)//to call fetch each time an item is deleted
+    const [loading, setLoading] = useState(true)//so that the returns don't load until after
+    const [likes, setLikes] = useState([]) //for GET data storage after it is fetched
 
     //GET using fetch API
     useEffect(() => {
@@ -32,18 +38,18 @@ export default function StarAPI(props) {
         }
         fetchLikes()
 
-    }, [])
+    }, [deleted])
 
     //DELETE with fetch API
     const deleteLike = async (id) => {
         let response = await fetch (APILINK + `/${id}`, {
-            method: 'DELETE'//NEED TO FINISH THIS METHOD
+            method: 'DELETE'
         })
-
+        setDelete(({deleted}) => delete + 1)
     }
 
     //POST with fetchAPI
-    const addLikedPost = async (id, permalink, sourceurl, text) => { //NEED TO ADD IN USESTATE FOR WHATEVER IS FED IN HERE
+    const addLikedPost = async (id, permalink, sourceurl, text) => {
         //console.log(id)
         //console.log(permalink)
         //console.log(sourceurl)
@@ -75,6 +81,15 @@ export default function StarAPI(props) {
         )
     }
 
+    const revealLikedFacts = () => {
+            //console.log('revealed saved facts')
+            setRevealed(true)
+        }
+    
+    const concealLikedFacts = () => {
+        setRevealed(false)
+    }
+
     /*const handleSubmit = (event) => {
         event.preventDefault()
         addLikedPost(object)//PUT THAT SH IN HERE
@@ -82,21 +97,30 @@ export default function StarAPI(props) {
 
     return(
         <>
-        <TriviaAPI addLikedPost = {addLikedPost}/>
+        <TriviaAPI addLikedPost = {addLikedPost} revealLikedFacts={revealLikedFacts}/>
+        <div>{' '}</div>
+        {revealed && (
         <Card>
-            <Card.Title>Saved Facts</Card.Title>
             <Card.Body>
-                {console.log(likes)}
-                {likes.map((like) => (
-                    <Col key={like.id}>
-                    {like.text}
-                    <Button onClick={() => deleteLike(like.id)}>Delete</Button>
-                    </Col>
+                <CloseButton className='float-start' onClick={() => concealLikedFacts()}/>
+                Saved Facts
+            </Card.Body>
+            <ListGroup variant='flush'>
+            {likes.map((like) => (
+                <ListGroup.Item variant='secondary' bg='dark' text='light' key={like.id}>
+                    <Row>
+                        <Col xs={9}>
+                        {like.text}
+                        </Col>
+                        <Col>
+                        <Button variant='secondary' size='sm' onClick={() => deleteLike(like.id)}>Unsave</Button>
+                        </Col>
+                    </Row>
+                </ListGroup.Item> 
                 ))
                 }
-                
-            </Card.Body>
-        </Card>
+            </ListGroup>
+        </Card>)}
         </>
     )
 }
