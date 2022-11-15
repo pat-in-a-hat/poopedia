@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 //Utilizing the useless facts api. Access via the link
 const FACT = 'https://uselessfacts.jsph.pl/today.json?language=en';
@@ -47,9 +48,31 @@ export default function TriviaAPI (props) {
             {<br></br>}
             {<br></br>}
         </Card.Text>
-            <Button className = 'float-start' variant='outline-dark' size='sm' onClick={() => setReset(({reset}) => reset + 1)}>New Fact</Button>
-            <Button variant='outline-dark' size='sm' onClick={() => props.revealLikedFacts()}>Saved facts</Button>
-            <Button className = 'float-sm-end' variant='outline-dark' size='sm' onClick={() => props.addLikedPost(id, permalink, source_url, text)}>Save this fact</Button>
+            <Row>
+                <Col>
+                    <Button 
+                        
+                        variant='outline-dark' 
+                        size='sm' 
+                        onClick={() => setReset(({reset}) => reset + 1)}
+                    >New Fact</Button>
+                </Col>
+                <Col>
+                    <Button
+                        variant='outline-dark'
+                        size='sm'
+                        onClick={() => props.revealLikedFacts()}
+                    >View Saved Facts</Button>
+                </Col>
+                <Col>
+                    <Button 
+                        
+                        variant='outline-dark' 
+                        size='sm' 
+                        onClick={() => props.addLikedPost(id, permalink, source_url, text)}
+                    >Save fact</Button>
+                </Col>
+            </Row>
         </Card.Body>
         </Card>
     )

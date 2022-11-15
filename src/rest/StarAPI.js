@@ -7,13 +7,13 @@ import Row from 'react-bootstrap/Row'
 import ListGroup from 'react-bootstrap/ListGroup'
 import CloseButton from 'react-bootstrap/CloseButton'
 
+//using mock api to store the random facts
 const APILINK = 'https://634f6de2df22c2af7b512858.mockapi.io/pickem/poopedia'
 
 
 //these links helpful pointers for this section
 //https://www.freecodecamp.org/news/how-to-consume-rest-apis-in-react/
 //https://www.w3schools.com/react/react_useeffect.asp
-
 
 export default function StarAPI(props) {
 
@@ -29,8 +29,8 @@ export default function StarAPI(props) {
             try {
                 const response = await fetch(APILINK)
                 const data = await response.json();
-                setLikes(data)
-                setLoading(false)
+                setLikes(data)//puts the fetched data into this state array
+                setLoading(false)//triggers the load state so the jsx is then loaded
             } catch (error){
                 console.log('caught error while fetching')
                 console.log(error)
@@ -38,14 +38,14 @@ export default function StarAPI(props) {
         }
         fetchLikes()
 
-    }, [deleted])
+    }, [deleted])//recalls useeffect when an item is deleted
 
     //DELETE with fetch API
     const deleteLike = async (id) => {
         let response = await fetch (APILINK + `/${id}`, {
             method: 'DELETE'
         })
-        setDelete(({deleted}) => delete + 1)
+        setDelete(({deleted}) => delete + 1)//updates delete state, triggering re fecth via useeffect
     }
 
     //POST with fetchAPI
@@ -63,7 +63,6 @@ export default function StarAPI(props) {
                 sourceurl: sourceurl,
                 text: text
 
-                //ADD IN EXACT ARRAY DETAILS HERE
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -71,16 +70,18 @@ export default function StarAPI(props) {
         })
         console.log('new like posted to mockAPI')
         let data = await response.json();
-        setLikes((likes) => [data, ...likes])
-        //RESET OTHER STATES HERE
+        setLikes((likes) => [data, ...likes])//adds newly posted item to the like state
     }
 
+    //this stops the main jsx from loading, preventing an error from the like state array being blank
+    //fetch has a slight delay so this prevents that delay from messing up the code loading
     if (loading) {
         return (
             <div>No likes yet...</div>
         )
     }
 
+    //these two methods open and close the 'liked' items card
     const revealLikedFacts = () => {
             //console.log('revealed saved facts')
             setRevealed(true)
@@ -97,10 +98,9 @@ export default function StarAPI(props) {
 
     return(
         <>
-        <TriviaAPI addLikedPost = {addLikedPost} revealLikedFacts={revealLikedFacts}/>
-        <div>{' '}</div>
+        {!revealed && <TriviaAPI addLikedPost = {addLikedPost} revealLikedFacts={revealLikedFacts}/>}
         {revealed && (
-        <Card>
+        <Card className='overflow-auto' style={{maxHeight: 600}}>
             <Card.Body>
                 <CloseButton className='float-start' onClick={() => concealLikedFacts()}/>
                 Saved Facts
