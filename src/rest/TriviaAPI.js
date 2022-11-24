@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 
 //Utilizing the useless facts api. Access via the link
-const FACT = 'https://uselessfacts.jsph.pl/today.json?language=en';
+const FACT = 'https://uselessfacts.jsph.pl/random.json?language=en';
 
 export default function TriviaAPI (props) {
     const [reset, setReset] = useState(0)

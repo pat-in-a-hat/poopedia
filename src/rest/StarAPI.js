@@ -96,6 +96,8 @@ export default function StarAPI(props) {
         addLikedPost(object)//PUT THAT SH IN HERE
     }*/
 
+    //using the revealed state we can toggle between the fact viewer and the liked facts cards
+    //added a max height and overflow auto styling so the mobile design stays clean
     return(
         <>
         {!revealed && <TriviaAPI addLikedPost = {addLikedPost} revealLikedFacts={revealLikedFacts}/>}
