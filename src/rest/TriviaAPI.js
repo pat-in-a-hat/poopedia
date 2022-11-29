@@ -54,7 +54,7 @@ export default function TriviaAPI (props) {
                         
                         variant='outline-dark' 
                         size='sm' 
-                        onClick={() => setReset(({reset}) => reset + 1)}
+                        onClick={() => setReset(reset + 1)}
                     >New Fact</Button>
                 </Col>
                 <Col>
