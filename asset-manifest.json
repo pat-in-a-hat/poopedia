@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/poopedia/static/css/main.1153c741.css",
+    "main.js": "/poopedia/static/js/main.60a6ddfa.js",
+    "index.html": "/poopedia/index.html",
+    "main.1153c741.css.map": "/poopedia/static/css/main.1153c741.css.map",
+    "main.60a6ddfa.js.map": "/poopedia/static/js/main.60a6ddfa.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1153c741.css",
+    "static/js/main.60a6ddfa.js"
+  ]
+}
