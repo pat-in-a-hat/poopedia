@@ -24,7 +24,7 @@ export default function TriviaAPI (props) {
             }
         }
         fetchPost();
-    }, [reset])//add reset state here once fixed
+    }, [reset])//fetches a new random fact by updating reset state when new fact button is hit
 
     
     const {id, language, permalink, source, source_url, text} = fact
