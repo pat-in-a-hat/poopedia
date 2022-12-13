@@ -43,7 +43,7 @@ export default function StarAPI(props) {
     //DELETE with fetch API
     const deleteLike = async (id) => {
         let response = await fetch (APILINK + `/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
         })
         setDelete(() => deleted + 1)//updates delete state, triggering re fecth via useeffect
     }
